@@ -12,11 +12,29 @@
 		tr:nth-child(odd){
 			background-color:lightgrey;
 		}
+		img{
+			width:100px;
+		}
 	</style>
 </head>
 
 <body>
 <?php
+function comprobacion($foto){
+	global $res;
+	for($i=1; $i<4; $i++){
+		if (preg_match("/jpg$/",$foto)){
+		
+			$res=true;
+		}
+		if(preg_match("/gif$/",$foto)){
+
+			$res=true;
+		}
+		return $res;
+	}	
+}
+
 $abrir_fotos=opendir('fotos');
 if($abrir_fotos){	
 	echo "<table>";
@@ -32,8 +50,12 @@ if($abrir_fotos){
 			}
 			$i++;
 			echo "<td>";
-			echo "<a href=fotos/$foto><img src=fotos/$foto></a>";
-			echo "</td>";
+			
+			$compr=comprobacion($foto);
+			if($compr){
+				echo "<a href=fotos/$foto><img src=fotos/$foto></a>";
+				echo "</td>";
+			}
 		}
 	}
 
